@@ -125,10 +125,14 @@ def places_search():
     of the request
     """
 
+    print("Received request for places_search")  # Debug log
+
     if request.get_json() is None:
+        print("Request body is not JSON")  # Debug log
         abort(400, description="Not a JSON")
 
     data = request.get_json()
+    print(f"Received data: {data}")  # Debug log
 
     if data and len(data):
         states = data.get('states', None)
@@ -177,4 +181,5 @@ def places_search():
         d.pop('amenities', None)
         places.append(d)
 
+    print(f"Returning {len(places)} places")  # Debug log
     return jsonify(places)
